@@ -1,68 +1,43 @@
-import { Button, Radio } from "antd";
+import React, { useState } from 'react';
 import './App.css';
 
-import { getAllStudents, login, getTeste } from "./client";
-import { useState, useEffect } from 'react';
-import {errorNotification, successNotification} from "./Notification";
+import Posting from './components/Posting/Posting';
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
 
-
-const testarGet = () => {
-	getTeste().then(res => res.json()).then(console.log)
-}
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import useToken from './useToken';
 
 function App() {
-	
- //const [trySignup,seTtrySignup] = useState(false);
- const [trylogin,setTrylogin] = useState(false);
- const tentar_login = () => testarGet()
-	.then(res => res.json())
-	.then(data => {
-		    console.log("lendo dados")
-			console.log(data);
-			//setStudents(data);
-		}	
-	).catch(
-		err =>  {
-			console.log("aaaa123")
-			err.response.json().then(
-				res => {
-				console.log(res);
-				errorNotification("There was an issuem", res.message+" Status code:"+res.status+" error:"+res.error)	
-			});
-		}).finally( () => setTrylogin(true) );
-console.log("Tentantdo "+trylogin)
+  const [signup, setSignup] = useState(true);
+  const { token, setToken } = useToken();
 
-
-useEffect( () => {
-		console.log("component is mounted");
-		tentar_login();
-	},[]);
-
-
-  //getAllStudents().then(res => res.json())
-	//.then(console.log)	
-	
-/*login().then((response) => {
-    for (var pair of response.headers.entries()) {
-	
-	  if (pair[0] == "authorization") {
-		 localStorage.setItem('authorization',pair[1])
-	  }
-    }
-  })	*/
-  
-  
-  
- 
   return (
-    <div className="App">
-    	<Button type='primary'>Hello</Button>
-    	<br/>
-    	<Radio.Group value='large'>
-          <Radio.Button value="large">Large</Radio.Button>
-          <Radio.Button value="default">Default</Radio.Button>
-          <Radio.Button  onClick={() => testarGet()} value="small">Small</Radio.Button>
-        </Radio.Group>
+    <div className="wrapper">
+      <BrowserRouter>
+         <h1>
+           <nav>
+           {!token && signup && <Link to="/signup" setSignup={!signup} onClick={() => setSignup(!signup)}>Sign up</Link>}
+           {!token && !signup && <Link to="/login" setSignup={!signup} onClick={() => setSignup(!signup)}>login</Link>}
+            
+          </nav>
+        </h1>
+        
+         <Switch>
+          
+          <Route path="/posting">
+            {token && <Posting />}
+            {!token && <Login setToken={setToken} />}
+          </Route>
+          <Route path="/signup">
+            {!token && <Signup />}
+          </Route>
+          <Route path="/">
+            {!token && <Login setToken={setToken} />}
+          </Route>
+
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
