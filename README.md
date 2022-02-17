@@ -18,10 +18,10 @@ Funcionalities
 Some Features
 - Api with Spring MVC
 - Authentication with JWT
-- JPA repository for data access
+- JPA
 - Customize Exceptions with ControllerAdvice and ExceptionHandler
 - Permissions/roles with spring boot security
-- Using H2 database for Unity Tests and Postgres for IT tests.
+- Using H2 database for Unit Tests and Postgres for IT tests.
 
 Steps
 
@@ -48,7 +48,7 @@ You  support clicking in [+support].
 ![image](https://user-images.githubusercontent.com/16165567/154190385-7a342e9f-e46f-42ef-9eda-83f91b745364.png)
 
 
-Maybe you wannt write a post [+ Add New Post].
+Maybe you want write a post [+ Add New Post].
 
 ![image](https://user-images.githubusercontent.com/16165567/154190585-3021ea08-0643-419f-a62a-1ec25558974e.png)
 
