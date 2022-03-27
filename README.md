@@ -3,7 +3,7 @@
 # forum
 Forum Project
 
-Forum web where you can see posts, support or write new messages. 
+Forum web whereby you can see posts, support or write new messages. 
 
 Application Spring Boot with React front end.
 
